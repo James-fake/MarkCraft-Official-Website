@@ -1,0 +1,33 @@
+# ===== 依赖与构建 =====
+node_modules/
+dist/
+dist-*/
+.vite/
+*.local
+# TS 增量构建信息 / Vite 加载 TS 配置时生成的临时文件
+*.tsbuildinfo
+vite.config.ts.timestamp-*.mjs
+
+# ===== 环境与系统 =====
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+
+# ===== 日志与临时 =====
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.tmp
+*.bak
+
+# ===== 编辑器 =====
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# ===== 本地工具数据（AI 工作区记忆等，不入库）=====
+.workbuddy-ai/

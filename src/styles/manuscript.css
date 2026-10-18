@@ -1,0 +1,528 @@
+/* ============================================================
+   手稿 × 星图（Manuscript & Constellation）
+   ------------------------------------------------------------
+   首屏与正文主视觉的**唯一视觉语言**：零图片，全部由站点自有字体
+   与发丝级 SVG 构成。取代早前「真实产品截图」方案。
+
+   规范来源（多 skill 会审）：
+   - impeccable：编辑设计 / 反 AI 套路 / 只动 transform·opacity / 指数缓动
+   - taste-skill(minimalist)：暖单色、发丝边框、极淡阴影、禁药丸大容器
+   - emilkowalski / web-animation-design：ease-out-expo、<300ms、禁 scale(0)
+   - macOS HIG：8pt 栅格、语义层级、尊重减少动效
+   ============================================================ */
+
+/* ============================================================
+   ① 手稿页（ManuscriptPage）
+   ============================================================ */
+.mc-page {
+  /* 字号：正文用可读字号；首屏缩略版由 .mc-backdrop__page 覆写为容器查询单位 */
+  font-size: var(--mc-page-fs, 1rem);
+  line-height: 1.72;
+  color: var(--mc-ink);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+}
+
+/* —— 页边目录（marginalia）—— */
+.mc-page__margin {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9em;
+  margin-right: 2.6em;
+  padding-right: 1.6em;
+  border-right: 1px solid var(--mc-hairline);
+  min-width: 11em;
+}
+.mc-page__margin-label {
+  font-size: 0.85em;
+  letter-spacing: 0.22em;
+  color: var(--mc-faint);
+}
+.mc-page__outline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.85em;
+  counter-reset: mc-outline;
+}
+.mc-page__outline li {
+  counter-increment: mc-outline;
+  font-size: 0.98em;
+  color: var(--mc-muted-ink);
+  line-height: 1.5;
+  padding-left: 1.9em;
+  position: relative;
+  transition: color 320ms var(--mc-ease-out);
+}
+.mc-page__outline li::before {
+  content: counter(mc-outline, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  font-family: var(--mc-font-mono);
+  font-size: 0.82em;
+  color: var(--mc-faint);
+}
+.mc-page__outline li.is-focus {
+  color: var(--mc-ink);
+}
+.mc-page__outline li.is-focus::before {
+  color: var(--mc-accent);
+}
+
+/* —— 正文 —— */
+.mc-page__body {
+  display: grid;
+  gap: 0.55em;
+  align-content: start;
+}
+
+.mc-md {
+  display: grid;
+  grid-template-columns: 1.7em minmax(0, 1fr);
+  gap: 0.55em;
+  align-items: baseline;
+  border-radius: 3px;
+  transition: background 420ms var(--mc-ease-out);
+}
+.mc-md__marker {
+  font-family: var(--mc-font-mono);
+  font-size: 0.86em;
+  color: var(--mc-faint);
+  text-align: right;
+  user-select: none;
+  transition: color 420ms var(--mc-ease-out);
+}
+.mc-md__text {
+  min-width: 0;
+}
+
+/* 结构样式 */
+.mc-md--h1 .mc-md__text {
+  font-size: 1.52em;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.28;
+}
+.mc-md--h1 {
+  margin-bottom: 0.5em;
+}
+.mc-md--quote .mc-md__text {
+  color: var(--mc-muted-ink);
+  font-style: italic;
+}
+.mc-md--li .mc-md__text::before {
+  content: '';
+}
+.mc-md--code {
+  margin-top: 0.4em;
+}
+.mc-md--code .mc-md__text {
+  font-family: var(--mc-font-mono);
+  font-size: 0.88em;
+  color: var(--mc-muted-ink);
+  background: var(--mc-code-bg);
+  border-radius: 3px;
+  padding: 0.15em 0.5em;
+  justify-self: start;
+}
+
+/* 内联 wiki 链接 */
+.mc-md__bracket {
+  font-family: var(--mc-font-mono);
+  font-size: 0.84em;
+  color: var(--mc-faint);
+  transition: color 420ms var(--mc-ease-out);
+}
+.mc-md__link {
+  color: var(--mc-accent);
+  border-bottom: 1px solid color-mix(in srgb, var(--mc-accent) 38%, transparent);
+  transition: color 420ms var(--mc-ease-out), border-color 420ms var(--mc-ease-out);
+}
+
+/* 焦点行 */
+.mc-md.is-focus {
+  background: var(--mc-accent-wash);
+}
+.mc-md.is-focus .mc-md__marker {
+  color: var(--mc-accent);
+}
+.mc-md.is-focus .mc-md__bracket {
+  color: var(--mc-accent);
+}
+.mc-md.is-focus .mc-md__link {
+  color: var(--mc-ink);
+  border-bottom-color: var(--mc-ink);
+}
+
+/* 焦点行「正在被写出来」：steps() 分步擦拭 —— 纯 CSS，不逐帧渲染 */
+.mc-md__run.is-typed {
+  display: inline-block;
+  clip-path: inset(0 100% 0 0);
+  animation: mc-typing 1200ms steps(28, end) forwards;
+}
+@keyframes mc-typing {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+.mc-md__caret {
+  display: inline-block;
+  width: 0.14em;
+  height: 1.05em;
+  margin-left: 0.18em;
+  vertical-align: -0.16em;
+  background: var(--mc-accent);
+  animation: mc-caret 1.15s steps(1, end) infinite;
+}
+@keyframes mc-caret {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  46%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* —— rendered 模式：语法标记退场，内容按富文本呈现 —— */
+.mc-page--rendered .mc-md {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+}
+.mc-page--rendered .mc-md__marker {
+  display: none;
+}
+.mc-page--rendered .mc-md__bracket {
+  display: none;
+}
+.mc-page--rendered .mc-md--quote .mc-md__text {
+  padding-left: 0.9em;
+  border-left: 2px solid var(--mc-quiet-line);
+  font-style: normal;
+}
+.mc-page--rendered .mc-md--li .mc-md__text {
+  padding-left: 1.1em;
+  position: relative;
+}
+.mc-page--rendered .mc-md--li .mc-md__text::before {
+  content: '';
+  position: absolute;
+  left: 0.15em;
+  top: 0.62em;
+  width: 0.32em;
+  height: 0.32em;
+  border-radius: 50%;
+  background: var(--mc-muted-ink);
+}
+.mc-page--rendered .mc-md__link {
+  border-bottom-color: color-mix(in srgb, var(--mc-accent) 55%, transparent);
+}
+
+/* ============================================================
+   ② 星图（Constellation）
+   ============================================================ */
+.mc-const {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+.mc-const__edge {
+  stroke: var(--mc-muted-ink);
+  stroke-width: 0.5;
+  stroke-opacity: 0.55;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: mc-const-draw 1400ms var(--mc-ease-out-expo) forwards;
+  animation-delay: calc(var(--i, 0) * 120ms);
+  transition: stroke 420ms var(--mc-ease-out), stroke-width 420ms var(--mc-ease-out);
+}
+.mc-const__edge.is-focus {
+  stroke: var(--mc-accent);
+  stroke-width: 0.9;
+  stroke-opacity: 1;
+}
+@keyframes mc-const-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.mc-const__node {
+  animation: mc-const-drift 22s var(--mc-ease-in-out) infinite;
+  animation-delay: calc(var(--i, 0) * -3.4s);
+}
+@keyframes mc-const-drift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(1.6px, -2.2px);
+  }
+  66% {
+    transform: translate(-1.8px, 1.4px);
+  }
+}
+
+.mc-const__dot {
+  fill: var(--mc-sheet);
+  stroke: var(--mc-muted-ink);
+  stroke-width: 0.7;
+  transition: fill 420ms var(--mc-ease-out), stroke 420ms var(--mc-ease-out),
+    stroke-width 420ms var(--mc-ease-out);
+}
+.mc-const__node.is-center .mc-const__dot {
+  stroke-width: 0.9;
+}
+.mc-const__node.is-focus .mc-const__dot {
+  fill: var(--mc-accent);
+  stroke: var(--mc-accent);
+  stroke-width: 0.9;
+}
+.mc-const__halo {
+  fill: none;
+  stroke: var(--mc-accent);
+  stroke-width: 0.5;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity 420ms var(--mc-ease-out);
+}
+.mc-const__node.is-focus .mc-const__halo {
+  opacity: 0.5;
+  animation: mc-const-halo 3.6s var(--mc-ease-out) infinite;
+}
+@keyframes mc-const-halo {
+  0% {
+    transform: scale(0.72);
+    opacity: 0.55;
+  }
+  70%,
+  100% {
+    transform: scale(1.18);
+    opacity: 0;
+  }
+}
+.mc-const__label {
+  fill: var(--mc-muted-ink);
+  font-family: var(--mc-font-sans);
+  font-size: 4.6px;
+  letter-spacing: 0.01em;
+  transition: fill 420ms var(--mc-ease-out);
+}
+.mc-const__node.is-focus .mc-const__label {
+  fill: var(--mc-ink);
+  font-weight: 600;
+}
+
+/* ============================================================
+   ③ 首屏背景（ManuscriptBackdrop）—— 「夜书房」
+   ------------------------------------------------------------
+   深墨画布 + 一页**大幅暖纸手稿**：对比度是这一版的核心改动 ——
+   早前「浅纸上的浅色稿纸」几乎分不出层次，现在稿纸从深底上「浮」起来。
+   ============================================================ */
+.mc-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.mc-backdrop__page {
+  container-type: inline-size;
+  position: absolute;
+  top: 12%;
+  /* 留 1% 边距：圆角与右边框完整可见（出血只切 29px 反而像事故） */
+  right: 1%;
+  width: min(46%, 72vh);
+  padding: 3em;
+  --mc-page-fs: clamp(12px, 2.05cqw, 17px);
+  background: var(--mc-sheet);
+  border-radius: 10px;
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.42), 0 4px 14px rgba(0, 0, 0, 0.22);
+}
+
+/* 手稿 → 星图 的连接线（画在手稿之下，看起来从纸背后长出来、汇入星图）
+   位置要点：起点必须落在手稿页范围内（才被纸遮住），终点落到星图上。 */
+.mc-backdrop__threads {
+  position: absolute;
+  top: 38%;
+  right: 22%;
+  width: 30%;
+  aspect-ratio: 200 / 120;
+  overflow: visible;
+}
+.mc-thread {
+  fill: none;
+  stroke: var(--mc-night-accent);
+  stroke-width: 0.4;
+  stroke-opacity: 0.42;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: mc-const-draw 1600ms var(--mc-ease-out-expo) forwards;
+  animation-delay: calc(var(--i, 0) * 140ms);
+}
+
+.mc-backdrop__const {
+  position: absolute;
+  bottom: 6%;
+  right: 24%;
+  width: min(30%, 38vh);
+  /* 深底换肤：节点填充取底色（看起来是「挖空的环」）、文字转浅、强调色提亮。
+     ⚠️ 必须连 `--mc-ink` 一起换 —— 焦点标签用的是 ink，否则深墨字压在深底上会消失。 */
+  --mc-sheet: var(--mc-desk);
+  --mc-ink: var(--mc-on-night);
+  --mc-muted-ink: #8a8c82;
+  --mc-accent: var(--mc-night-accent);
+}
+.mc-backdrop__const .mc-const__edge {
+  stroke-opacity: 0.38;
+}
+
+/* 深底可读性：左侧文案区压一层 desk 色，右侧稿纸区完全露出 */
+.mc-backdrop__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    97deg,
+    var(--mc-desk) 0%,
+    var(--mc-desk) 34%,
+    color-mix(in srgb, var(--mc-desk) 55%, transparent) 44%,
+    transparent 52%
+  );
+}
+
+/* 底部压暗：把首屏收成一个「被照亮的舞台」 */
+.mc-hero::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 14%;
+  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.28));
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* —— 暂停（离屏 / 后台）—— */
+.mc-backdrop.is-paused * {
+  animation-play-state: paused !important;
+}
+
+/* —— 减少动态效果：冻结为静态构图，保留全部内容 —— */
+@media (prefers-reduced-motion: reduce) {
+  .mc-backdrop *,
+  .mc-const *,
+  .mc-page * {
+    animation: none !important;
+  }
+  .mc-const__edge,
+  .mc-thread {
+    stroke-dashoffset: 0 !important;
+  }
+  .mc-const__halo {
+    opacity: 0.4 !important;
+  }
+  /* 擦拭动画被关掉后必须解除裁切，否则文字会被永久遮住 */
+  .mc-md__run.is-typed {
+    clip-path: none !important;
+  }
+  .mc-md__caret {
+    display: none;
+  }
+}
+.mc-backdrop.is-reduced .mc-const__edge,
+.mc-backdrop.is-reduced .mc-thread {
+  stroke-dashoffset: 0;
+}
+
+/* ============================================================
+   ④ 响应式
+   ============================================================ */
+@media (max-width: 1280px) {
+  .mc-backdrop__page {
+    width: min(48%, 68vh);
+    right: 1%;
+  }
+  .mc-backdrop__threads {
+    top: 37%;
+    right: 20%;
+    width: 32%;
+  }
+  .mc-backdrop__const {
+    right: 22%;
+    width: min(32%, 34vh);
+  }
+}
+
+@media (max-width: 1024px) {
+  .mc-backdrop__page {
+    top: 10%;
+    right: 2%;
+    width: min(56%, 58vh);
+    padding: 2.4em;
+  }
+  .mc-backdrop__threads {
+    display: none;
+  }
+  .mc-backdrop__const {
+    bottom: 7%;
+    right: 4%;
+    width: min(38%, 26vh);
+  }
+}
+
+/* 窄屏：页边目录改为**上方横向堆叠**（不丢内容） */
+@media (max-width: 900px) {
+  .mc-page {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .mc-page__margin {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5em 1.8em;
+    min-width: 0;
+    margin-right: 0;
+    margin-bottom: 1.6em;
+    padding-right: 0;
+    padding-bottom: 1.1em;
+    border-right: none;
+    border-bottom: 1px solid var(--mc-hairline);
+  }
+  .mc-page__outline {
+    grid-auto-flow: column;
+    grid-template-columns: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .mc-backdrop__page {
+    top: 6%;
+    right: 2%;
+    width: min(86%, 36vh);
+    padding: 1.8em;
+  }
+  /* 首屏的手稿只是背景缩略 —— 页边目录在此隐藏，正文里仍完整保留 */
+  .mc-backdrop__page .mc-page__margin {
+    display: none;
+  }
+  .mc-backdrop__const {
+    display: none;
+  }
+  .mc-backdrop__scrim {
+    background: radial-gradient(
+      130% 62% at 50% 52%,
+      color-mix(in srgb, var(--mc-desk) 97%, transparent) 0%,
+      color-mix(in srgb, var(--mc-desk) 90%, transparent) 40%,
+      color-mix(in srgb, var(--mc-desk) 24%, transparent) 100%
+    );
+  }
+  .mc-hero::after {
+    height: 8%;
+  }
+}
