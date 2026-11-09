@@ -1,41 +1,41 @@
 import { Button } from '../components/buttons/Button'
-import { siteConfig } from '../config/siteConfig'
-import { ManuscriptBackdrop } from '../features/manuscript/ManuscriptBackdrop'
+import { SchematicFigure } from '../components/ui/SchematicFigure'
 
 /**
- * 屏幕 01 — Hero / The Thought
- *
- * 构图：品牌标题、说明与 CTA 位于**前景安全区**（左），
- * **手稿 × 星图**在后方持续运行 —— 一页被排版的 Markdown 手稿在右上，
- * 它的 `[[链接]]` 长出连线汇入左下的笔记星图，页边同时生成目录。
- *
- * ⚠️ 前景文案与 CTA 保持原样。
+ * B2 Hero（id #top，族 A）。
+ * 恰好 4 个文案文本元素：H1、副文、主 CTA、次文字链。
+ * 图占位标注与 figcaption 属图形标注位，不计入文案元素与 CTA 计数。
  */
 export function HeroSection() {
   return (
     <section className="mc-hero" id="top">
-      <ManuscriptBackdrop />
-      <div className="mc-hero__inner">
-        <div className="mc-hero__copy">
-          <p className="mc-hero__eyebrow">{siteConfig.name}</p>
-          <h1 className="mc-hero__title">{siteConfig.tagline}</h1>
-          <p className="mc-hero__title-zh">{siteConfig.taglineZh}</p>
-          <p className="mc-hero__desc">
-            从一篇 Markdown 笔记开始，连接你的知识，最后把它变成作品。
-          </p>
-          <div className="mc-hero__cta">
-            <Button variant="primary" href={siteConfig.demoPath}>
-              体验 Demo
-            </Button>
-            <Button variant="secondary" href="#download">
-              下载 MarkCraft
-            </Button>
+      <div className="mc-container">
+        <div className="mc-hero__grid">
+          <div className="mc-hero__copy">
+            <h1 className="mc-hero__title">
+              你的知识库，<em>存在你自己的磁盘上</em>
+            </h1>
+            <p className="mc-hero__sub">
+              MarkCraft 是 Windows 桌面端的 Markdown 知识库。双向链接、双链图谱、白板与博客工坊。
+            </p>
+            <div className="mc-hero__cta">
+              <Button variant="primary" href="#statement">
+                了解功能
+              </Button>
+              <a className="mc-hero__textlink" href="#faq">
+                查看常见问题
+              </a>
+            </div>
+          </div>
+          <div className="mc-hero__media">
+            <SchematicFigure
+              variant="editor"
+              ariaLabel="MarkCraft 编辑器主视图示意图，抽象示意，非真实截图"
+              figcaption="编辑器主视图（示意）"
+            />
           </div>
         </div>
       </div>
-      <a className="mc-hero__scroll" href="#statement" aria-label="向下探索">
-        ↓
-      </a>
     </section>
   )
 }

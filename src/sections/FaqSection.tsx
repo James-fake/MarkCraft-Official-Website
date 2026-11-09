@@ -1,64 +1,49 @@
-import { Container } from '../components/layout/Container'
-import { SectionTitle } from '../components/ui/SectionTitle'
-
-/**
- * 屏幕 08 — FAQ
- *
- * 用原生 `<details>` 做折叠：无需 JS、键盘可达、读屏友好。
- * 视觉上按编辑设计惯例「去掉卡片盒子」，只用发丝分隔线 + 加减号。
- *
- * ⚠️ 答案必须是**可核实的事实**（存储位置、离线能力、导出格式、平台）。
- *    涉及未定项（价格、发布日期）一律不写。
- */
-const QA = [
+const QA: { q: string; a: string }[] = [
   {
-    q: '我的笔记存在哪里？',
-    a: '存在你指定的知识库文件夹里，每篇笔记就是一个 .md 文件。应用自身的设置与索引另存于系统的应用数据目录，不影响你的文件。',
+    q: '内容存在哪里？',
+    a: '选一个文件夹作为 Vault，正文以真实 .md 文件存在那里，任何编辑器都能打开。目录结构、知识库与版本历史以 JSON 存于本机应用数据目录，设置存 localStorage。',
   },
   {
     q: '需要联网吗？',
-    a: '不需要。写作、编辑、双向链接、知识图谱与知识库检索都完全离线运行 —— 当前版本没有任何需要联网的功能。',
+    a: '不用。编辑、双向链接、双链图谱与检索都在本机完成。会联网的只有博客发布、导入外部 URL、图床上传与你主动开启的匿名使用统计。',
   },
   {
     q: '数据会被上传到你们的服务器吗？',
-    a: '不会。MarkCraft 没有云端账号体系，也不发起任何联网请求 —— 笔记始终留在你自己的磁盘上。',
+    a: '正文不会离开你的设备，没有云端账号也没有云同步。匿名使用统计默认关闭，需你主动同意后才经 HTTPS 上报，随时可关。上报内容不含正文、标题、文件名、路径或 IP。',
   },
   {
     q: '能用网盘同步吗？',
-    a: '可以。知识库就是一个普通文件夹，用任何同步工具同步它即可 —— 网盘客户端、同步盘或 Git 都行，MarkCraft 不需要知道。',
+    a: '可以。Vault 就是一个普通文件夹，用网盘、同步盘或 Git 同步它即可。应用自身状态存于本机应用数据目录，不在这个文件夹里。',
   },
   {
     q: '可以导出成什么格式？',
-    a: 'HTML、PDF、EPUB、DOCX、Markdown、LaTeX、OPML、MediaWiki、reStructuredText、纯文本、图片，以及包含全部文件与图片的 ZIP 整库备份。',
+    a: 'HTML、PDF、EPUB、Word、Markdown、LaTeX、reStructuredText、MediaWiki、OPML、Plain Text、PNG、JPEG，共 12 种。另有含全部文件与图片的 ZIP 整库备份。',
   },
   {
     q: '支持哪些系统？',
-    a: '当前提供 Windows x64 的安装版与免安装版。其它平台尚未发布，发布前不会在官网上宣传为已支持。',
+    a: '当前提供 Windows x64 的安装版与免安装版。其它平台尚未正式发布，发布前不会在官网宣传为已支持。',
   },
 ]
 
+/**
+ * B9 FAQ（id #faq，族 H）。
+ * 原生 <details> 折叠：无 JS、键盘可达、读屏友好；发丝分隔线 + 加减号指示。
+ * 答案为可核实事实（存储、离线能力、导出格式、平台）。
+ */
 export function FaqSection() {
   return (
     <section className="mc-section mc-faq" id="faq">
-      <Container>
-        <SectionTitle
-          titleEn="Before you download."
-          title="你可能想先确认的事"
-          lead="关于数据在哪、要不要联网、能不能带走 —— 先把这些说清楚。"
-        />
-
+      <div className="mc-container">
+        <h2 className="mc-h2 mc-faq__title">常见问题</h2>
         <div className="mc-faq__list">
           {QA.map((item) => (
             <details className="mc-faq__item" key={item.q}>
-              <summary className="mc-faq__q">
-                <span>{item.q}</span>
-                <span className="mc-faq__icon" aria-hidden="true" />
-              </summary>
+              <summary className="mc-faq__q">{item.q}</summary>
               <p className="mc-faq__a">{item.a}</p>
             </details>
           ))}
         </div>
-      </Container>
+      </div>
     </section>
   )
 }

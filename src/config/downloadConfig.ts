@@ -24,7 +24,7 @@ export type InstallChannel = {
 
 export const downloadConfig = {
   /** 当前版本 */
-  version: 'v0.1.0',
+  version: '1.0.0',
   /** 目标平台 */
   platformLabel: 'Windows',
   /** CPU 架构（当前仅构建 x64；ARM64 未构建） */

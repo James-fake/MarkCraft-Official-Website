@@ -1,47 +1,42 @@
-import { Container } from '../components/layout/Container'
-import { SectionTitle } from '../components/ui/SectionTitle'
-import { featureGroups } from '../data/featureList'
+import { SchematicFigure } from '../components/ui/SchematicFigure'
 
-/**
- * 屏幕 05 — The Possibility / 从知识到作品
- *
- * 这一节刻意**做得安静**：只放能力总览，不放视觉主体。
- * 页面节奏靠「有的章节有大视觉、有的章节只有文字」来拉开 ——
- * 早前每节都是「标题 + 大块视觉」，所以整页读起来平。
- *
- * ⚠️ 原先这里的「已排版成品文章」已移除：它与新增的「主题与导出」节重复。
- */
-const COPY = [
-  '用视觉方式整理想法与关系。',
-  '在已有知识中检索相关段落，并给出摘录式回答。',
-  '把笔记整理为可阅读的文章，并预览不同主题。',
-  '把内容导出为你需要的格式。',
+const LINES = [
+  '白板：8 种卡片，思维导图 / 看板 / 时间线三种视图。',
+  '知识库：7 个标签页、4 维健康度，本地统计检索，不调用大模型。',
+  '命令面板：⌘K 唤起，搜索、跳转与常用操作走键盘。',
 ]
 
+/**
+ * B6 Possibility（id #possibility，族 E）。
+ * 三个模块都不需要登录，主要计算在本机完成。
+ */
 export function PossibilitySection() {
   return (
     <section className="mc-section mc-possibility" id="possibility">
-      <Container>
-        <SectionTitle
-          titleEn="Knowledge wants to move."
-          title="让知识继续向前"
-          lead="将笔记带入白板、知识检索、文章整理与多格式导出流程，让保存下来的内容拥有更多使用方式。"
-        />
-        <div className="mc-possibility__blocks">
-          {featureGroups
-            .find((g) => g.id === 'possibility')!
-            .items.map((item, i) => (
-              <div className="mc-possibility__block" key={item}>
-                <span className="mc-possibility__index">{String(i + 1).padStart(2, '0')}</span>
-                <h3>{item}</h3>
-                <p>{COPY[i]}</p>
-              </div>
-            ))}
+      <div className="mc-container">
+        <div className="mc-possibility__grid">
+          <div>
+            <h2 className="mc-h2">白板、知识库与命令面板</h2>
+            <p className="mc-possibility__lead">
+              三个模块都不需要登录，主要计算在本机完成。
+            </p>
+          </div>
+          <div>
+            <SchematicFigure
+              variant="palette"
+              ariaLabel="命令面板 ⌘K 打开态示意图，抽象示意，非真实截图"
+              figcaption="命令面板 ⌘K 打开态（示意）"
+            />
+            <div className="mc-possibility__lines">
+              {LINES.map((line) => (
+                <p className="mc-possibility__line" key={line}>
+                  {line}
+                </p>
+              ))}
+            </div>
+          </div>
         </div>
-        <p className="mc-possibility__note">
-          功能上线状态以当前发行版本为准；未正式发布的部署能力不会在官网宣传为已上线。
-        </p>
-      </Container>
+      </div>
     </section>
   )
 }

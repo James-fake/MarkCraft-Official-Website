@@ -1,34 +1,57 @@
-import { Container } from '../components/layout/Container'
+import type { ReactNode } from 'react'
+import { IconImport, IconLink, IconPublish } from '../components/ui/icons'
 
-/**
- * 屏幕 02 — Product Statement / 从工具到工作流（蓝图 §5.2）
- * 三阶段叙事：记录 → 连接 → 创作。
- */
-const stages = [
-  { step: '01', title: '记录', desc: '从一条观察、一段摘录开始。' },
-  { step: '02', title: '连接', desc: '通过链接、标签与图谱，让不同时间写下的内容发生联系。' },
-  { step: '03', title: '创作', desc: '把这些联系变成新的理解与作品。' },
+type Step = {
+  icon: ReactNode
+  title: string
+  desc: string
+  mono: string
+}
+
+const steps: Step[] = [
+  {
+    icon: <IconImport />,
+    title: '导入',
+    desc: '把 .md / .txt / .docx / .html 统一成高质量 GFM，表格语法可用。',
+    mono: '.md / .txt / .docx / .html',
+  },
+  {
+    icon: <IconLink />,
+    title: '连接',
+    desc: '双向链接、反向链接、未链接提及、块引用与嵌套标签，把相关条目连成可探索的网络。',
+    mono: 'WikiLink / 反向链接 / 未链接提及',
+  },
+  {
+    icon: <IconPublish />,
+    title: '发布',
+    desc: '63 套预设主题、12 种导出格式，以及 GitHub / Gitee / Vercel / Cloudflare / Netlify 部署适配。',
+    mono: '63 套主题 / 12 种格式 / 5 个部署适配',
+  },
 ]
 
+/**
+ * B3 Workflow（id #statement，族 B）。
+ * 三格叙事：导入 → 连接 → 发布，全程不需要云端账号。
+ */
 export function WorkflowSection() {
   return (
     <section className="mc-section mc-workflow" id="statement">
-      <Container>
+      <div className="mc-container">
+        <h2 className="mc-h2 mc-workflow__head">从导入到发布</h2>
         <p className="mc-workflow__lead">
-          笔记不必停留在被保存的那一刻。
-          <br />
-          它们可以彼此连接，也可以成为下一篇作品的起点。
+          同一份 .md 文件从导入、连接到发布，全程不需要云端账号。
         </p>
-        <ol className="mc-workflow__stages">
-          {stages.map((s) => (
-            <li key={s.step} className="mc-workflow__stage">
-              <span className="mc-workflow__step">{s.step}</span>
-              <h3 className="mc-workflow__title">{s.title}</h3>
-              <p className="mc-workflow__desc">{s.desc}</p>
-            </li>
+        <div className="mc-track">
+          {steps.map((s) => (
+            <div className="mc-track__cell" key={s.title}>
+              <div className="mc-track__icon">{s.icon}</div>
+              <h3 className="mc-track__title">{s.title}</h3>
+              <p className="mc-track__desc">{s.desc}</p>
+              <p className="mc-track__mono">{s.mono}</p>
+            </div>
           ))}
-        </ol>
-      </Container>
+        </div>
+      </div>
     </section>
   )
 }

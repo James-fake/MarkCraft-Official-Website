@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <!-- MarkCraft 官网 OG 分享图（1200×630）。品牌图标与产品本体 public/icon.svg 同源：
+       macOS 质感「折角便签」squircle。右侧为能力一览面板（非产品截图，不声称存在界面截图）。 -->
+  <defs>
+    <radialGradient id="ogGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#7C8CFF" stop-opacity="0.20"/>
+      <stop offset="1" stop-color="#7C8CFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ogBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9AA7FF"/>
+      <stop offset="0.5" stop-color="#7C8CFF"/>
+      <stop offset="1" stop-color="#5E6BD6"/>
+    </linearGradient>
+    <linearGradient id="ogSheen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.45"/>
+      <stop offset="0.5" stop-color="#ffffff" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="ogPaper" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#EEF1FB"/>
+    </linearGradient>
+    <filter id="ogShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#1a1f4a" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="#0A0B0F"/>
+  <ellipse cx="1010" cy="70" rx="440" ry="400" fill="url(#ogGlow)"/>
+
+  <!-- 品牌：折角便签图标 + 字标 -->
+  <g transform="translate(110,150) scale(0.27)">
+    <rect x="8" y="8" width="496" height="496" rx="124" fill="url(#ogBg)"/>
+    <rect x="8" y="8" width="496" height="496" rx="124" fill="url(#ogSheen)"/>
+    <g transform="rotate(-5 256 256)" filter="url(#ogShadow)">
+      <path d="M96 96 L372 96 L416 140 L416 416 L96 416 Z" fill="url(#ogPaper)"/>
+      <path d="M372 96 L416 140 L416 96 Z" fill="#E2E6F5"/>
+      <path d="M372 96 L416 140" fill="none" stroke="#C7CCE8" stroke-width="3" stroke-linecap="round"/>
+      <path d="M176 336 L176 192 L216 192 L256 264 L296 192 L336 192 L336 336 L304 336 L304 248 L256 326 L208 248 L208 336 Z" fill="#7C8CFF"/>
+      <g stroke="#7C8CFF" stroke-width="9" stroke-linecap="round" opacity="0.2">
+        <line x1="150" y1="362" x2="362" y2="362"/>
+        <line x1="150" y1="388" x2="362" y2="388"/>
+        <line x1="150" y1="412" x2="318" y2="412"/>
+      </g>
+    </g>
+    <rect x="8" y="8" width="496" height="496" rx="124" fill="none" stroke="#ffffff" stroke-opacity="0.25" stroke-width="3"/>
+  </g>
+  <text x="272" y="232" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="30" font-weight="600" fill="#E8ECF4">MarkCraft</text>
+
+  <!-- 主标题 -->
+  <text x="110" y="372" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="64" font-weight="700" fill="#E8ECF4">本地优先的</text>
+  <text x="110" y="448" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="64" font-weight="700" fill="#A5B4FF">Markdown 知识库</text>
+  <text x="112" y="496" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="24" font-weight="400" fill="#9AA3B5">双向链接 · 2D 双链图谱 · 白板与博客工坊</text>
+
+  <!-- 右侧能力面板（非截图，纯文字能力清单） -->
+  <rect x="820" y="150" width="300" height="330" rx="16" fill="#151821" stroke="#262B3B" stroke-width="2"/>
+  <text x="850" y="196" font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="15" font-weight="600" letter-spacing="1" fill="#6B7280">能力一览</text>
+  <g fill="#7C8CFF">
+    <circle cx="852" cy="244" r="4"/>
+    <circle cx="852" cy="292" r="4"/>
+    <circle cx="852" cy="340" r="4"/>
+    <circle cx="852" cy="388" r="4"/>
+    <circle cx="852" cy="436" r="4"/>
+  </g>
+  <g font-family="Inter, 'Segoe UI', system-ui, sans-serif" font-size="20" font-weight="500" fill="#C8CFDD">
+    <text x="870" y="250">双向链接 &amp; 反向链接</text>
+    <text x="870" y="298">2D 双链图谱 · 4 种布局</text>
+    <text x="870" y="346">白板 &amp; 命令面板</text>
+    <text x="870" y="394">63 主题 · 12 格式 · 5 部署</text>
+    <text x="870" y="442">Windows x64 · 本地优先</text>
+  </g>
+  <text x="970" y="462" text-anchor="middle" font-family="ui-monospace, 'SFMono-Regular', Menlo, monospace" font-size="13" fill="#6B7280">MARKCRAFT · 1.0.0</text>
+</svg>

@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MarkCraft：本地优先的 Markdown 笔记与知识库桌面应用（Windows）</title>
+<meta name="description" content="MarkCraft 是 Windows 桌面端的本地优先 Markdown 笔记与知识库应用：双向链接、反向链接与 2D 双链图谱把笔记连成网络，白板与博客工坊继续处理，63 套主题、12 种导出格式与 5 个部署适配器。笔记以 .md 文件存在本机，无云端账号，核心功能离线可用。" />
+<meta name="theme-color" content="#101218" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="MarkCraft" />
+<meta property="og:locale" content="zh_CN" />
+<meta property="og:title" content="MarkCraft：本地优先的 Markdown 知识库桌面应用（Windows）" />
+<meta property="og:description" content="MarkCraft 是一款 Windows 桌面端 Markdown 知识库应用：双向链接、反向链接与 2D 双链图谱把内容连成网络，白板整理想法，63 套主题与 12 种格式导出发布。内容以 .md 文件存在你自己的磁盘，无云端账号，核心功能离线可用。" />
+<meta property="og:image" content="./assets/og-1200x630.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="MarkCraft 官网分享图，深色背景，左侧为标题「本地优先的 Markdown 知识库」，右侧为产品视图示意占位区域。" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="MarkCraft：本地优先的 Markdown 知识库桌面应用（Windows）" />
+<meta name="twitter:description" content="MarkCraft 是一款 Windows 桌面端 Markdown 知识库应用，双向链接、反向链接与 2D 双链图谱把内容连成网络。内容以 .md 文件存在本机，无云端账号，核心功能离线可用。" />
+<meta name="twitter:image" content="./assets/og-1200x630.png" />
+<meta name="twitter:image:alt" content="MarkCraft 官网分享图，深色背景，左侧为标题「本地优先的 Markdown 知识库」，右侧为产品视图示意占位区域。" />
+<link rel="icon" type="image/svg+xml" href="./assets/markcraft-logo.svg" />
+<link rel="stylesheet" href="./assets/design.css" />
+<!-- canonical / robots / sitemap 待正式域名确定后补齐，此处不写占位域名 -->
+<!-- 本文件为高保真设计效果图，不是官网生产代码。产品截图位使用纯色标注占位框，不画假界面。 -->
+</head>
+<body>
+
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="logo" viewBox="0 0 64 64">
+    <rect width="64" height="64" rx="14" fill="#7C8CFF" />
+    <rect x="15" y="11" width="34" height="42" rx="4" fill="#FFFFFF" />
+    <text x="32" y="40" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="26" font-weight="700" fill="#7C8CFF">M</text>
+    <rect x="21" y="46" width="22" height="2" rx="1" fill="#7C8CFF" opacity=".25" />
+  </symbol>
+  <symbol id="i-import" viewBox="0 0 24 24"><path d="M12 3v12" /><path d="M8 11l4 4 4-4" /><path d="M4 17v3h16v-3" /></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.5" /><circle cx="18" cy="6" r="2.5" /><circle cx="18" cy="18" r="2.5" /><path d="M8.2 10.8l7.6-3.6M8.2 13.2l7.6 3.6" /></symbol>
+  <symbol id="i-publish" viewBox="0 0 24 24"><path d="M4 20h16" /><path d="M7 16l5-9 5 9" /><path d="M9 13h6" /></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2" /><path d="M8 8h8M8 12h8M8 16h5" /></symbol>
+  <symbol id="i-view" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M3 9h18M9 9v11" /></symbol>
+  <symbol id="i-sync" viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 9" /><path d="M20 4v5h-5" /><path d="M20 12a8 8 0 0 1-13.7 5.6L4 15" /><path d="M4 20v-5h5" /></symbol>
+  <symbol id="i-cmd" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M7 9l3 3-3 3M12 15h5" /></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z" /><path d="M9 12l2 2 4-4" /></symbol>
+  <symbol id="i-net" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" /></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.5" /><circle cx="5" cy="6" r="2" /><circle cx="19" cy="6" r="2" /><circle cx="19" cy="18" r="2" /><path d="M6.7 7.3l3.8 3.4M14.7 10.7l3-2.4M13.8 13.8l3.6 2.9" /></symbol>
+</svg>
+
+<a class="skip" href="#main">跳到主要内容</a>
+
+<noscript>
+  <div style="max-width:1200px;margin:0 auto;padding:24px 20px;color:#9AA3B5;font:400 16px/1.65 system-ui,sans-serif">
+    MarkCraft 是 Windows 桌面端的本地优先 Markdown 知识库应用。双向链接、反向链接与 2D 双链图谱把内容连成网络，白板整理想法，博客工坊提供 63 套主题、12 种导出格式与 5 个部署适配器。内容以 .md 文件存在你自己的磁盘，无云端账号，核心功能离线可用。完整页面需要启用 JavaScript 才能查看，但以上产品摘要不依赖脚本。
+  </div>
+</noscript>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top" aria-label="MarkCraft 首页">
+      <svg class="logo" aria-hidden="true"><use href="#logo" /></svg>
+      <span class="brand-name">MarkCraft</span>
+    </a>
+    <nav class="nav-links" aria-label="章节导航">
+      <a href="#craft">产品</a>
+      <a href="#connection">连接</a>
+      <a href="#possibility">能力</a>
+      <a href="#output">输出</a>
+      <a href="#local">本地</a>
+      <a href="#faq">答疑</a>
+    </nav>
+    <a class="btn btn-sm nav-cta" href="#download">下载</a>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+
+  <section class="hero" id="top" aria-labelledby="h-hero">
+    <div class="wrap hero-grid">
+      <div>
+        <h1 id="h-hero">你的知识库，<em>存在你自己的磁盘上</em></h1>
+        <p class="hero-lead">MarkCraft 是 Windows 桌面端的 Markdown 知识库。双向链接、双链图谱、白板与博客工坊。</p>
+        <div class="hero-actions">
+          <a class="btn" href="#statement">了解功能</a>
+          <a class="link" href="#faq">查看常见问题</a>
+        </div>
+      </div>
+      <figure class="hero-shot">
+        <div class="shot shot-hero" role="img" aria-label="MarkCraft 编辑器主视图示意">编辑器主视图（示意）</div>
+        <figcaption>编辑器主视图（示意）</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="workflow" id="statement" aria-labelledby="h-statement">
+    <div class="wrap">
+      <h2 id="h-statement">从导入到发布</h2>
+      <p class="workflow-lead">同一份 .md 文件从导入、连接到发布，全程不需要云端账号。</p>
+      <div class="workflow-track">
+        <div class="workflow-cell">
+          <svg class="ico" aria-hidden="true"><use href="#i-import" /></svg>
+          <h3>导入</h3>
+          <p>把 .md / .txt / .docx / .html 统一成高质量 GFM，表格语法可用。</p>
+          <p class="workflow-spec">.md / .txt / .docx / .html</p>
+        </div>
+        <div class="workflow-cell">
+          <svg class="ico" aria-hidden="true"><use href="#i-link" /></svg>
+          <h3>连接</h3>
+          <p>双向链接、反向链接、未链接提及、块引用与嵌套标签，把相关条目连成可探索的网络。</p>
+          <p class="workflow-spec">WikiLink / 反向链接 / 未链接提及</p>
+        </div>
+        <div class="workflow-cell">
+          <svg class="ico" aria-hidden="true"><use href="#i-publish" /></svg>
+          <h3>发布</h3>
+          <p>63 套预设主题、12 种导出格式，以及 GitHub / Gitee / Vercel / Cloudflare / Netlify 部署适配。</p>
+          <p class="workflow-spec">63 套主题 / 12 种格式 / 5 个部署适配</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="craft" id="craft" aria-labelledby="h-craft">
+    <div class="wrap craft-grid">
+      <div class="craft-aside">
+        <h2 id="h-craft">同一份 .md 文件，两种视图</h2>
+        <p>源码与所见即所得共用同一份 Markdown。切换的是呈现方式，不是另一份内容。</p>
+      </div>
+      <div>
+        <div class="feat-row">
+          <div class="feat-name"><svg class="ico" aria-hidden="true"><use href="#i-doc" /></svg>CodeMirror 6 源码</div>
+          <p class="feat-desc">直接编辑 Markdown 语法标记，精确控制每一处结构。</p>
+        </div>
+        <div class="feat-row">
+          <div class="feat-name"><svg class="ico" aria-hidden="true"><use href="#i-view" /></svg>Tiptap 3 所见即所得</div>
+          <p class="feat-desc">在渲染后的页面上直接修改，语法由编辑器维护。</p>
+        </div>
+        <div class="feat-row">
+          <div class="feat-name"><svg class="ico" aria-hidden="true"><use href="#i-sync" /></svg>同源切换</div>
+          <p class="feat-desc">两种模式读写同一份 .md 文件，切换不产生副本。</p>
+        </div>
+        <div class="feat-row">
+          <div class="feat-name"><svg class="ico" aria-hidden="true"><use href="#i-cmd" /></svg>命令面板</div>
+          <p class="feat-desc">⌘K 唤起，常用操作与跳转不依赖鼠标。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="connection" id="connection" aria-labelledby="h-connection">
+    <div class="wrap">
+      <figure>
+        <div class="shot shot-wide" role="img" aria-label="2D 双链图谱视图，力导向布局示意">2D 双链图谱视图（示意）</div>
+        <figcaption>双链图谱视图（示意）</figcaption>
+      </figure>
+      <div class="connection-desc">
+        <h2 id="h-connection">看见内容之间的关系</h2>
+        <div>
+          <p>双向链接、反向链接与双链图谱，把分散保存的条目汇成可探索的网络。</p>
+          <p class="mono">SVG 2D，力导向 / 同心圆 / 树 / 网格 四种布局，含度数统计与邻居扩展。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="possibility" id="possibility" aria-labelledby="h-possibility">
+    <div class="wrap possibility-grid">
+      <div>
+        <h2 id="h-possibility">白板、知识库与命令面板</h2>
+        <p class="possibility-lead">三个模块都不需要登录，主要计算在本机完成。</p>
+        <div class="cap-line">白板：8 种卡片，思维导图 / 看板 / 时间线三种视图。</div>
+        <div class="cap-line">知识库：7 个标签页、4 维健康度，本地统计检索，不调用大模型。</div>
+        <div class="cap-line">命令面板：⌘K 唤起，搜索、跳转与常用操作走键盘。</div>
+      </div>
+      <figure>
+        <div class="shot shot-small" role="img" aria-label="命令面板 ⌘K 打开态示意">命令面板 ⌘K 打开态（示意）</div>
+        <figcaption>命令面板 ⌘K 打开态（示意）</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="output" id="output" aria-labelledby="h-output">
+    <div class="wrap">
+      <h2 id="h-output">主题、格式与发布</h2>
+      <div class="output-grid">
+        <div>
+          <div class="fmt-cluster">
+            <h3>页面与出版物</h3>
+            <ul class="fmt-list">
+              <li>HTML <code>.html</code></li><li>PDF <code>.pdf</code></li>
+              <li>EPUB <code>.epub</code></li><li>Word <code>.docx</code></li>
+            </ul>
+          </div>
+          <div class="fmt-cluster">
+            <h3>文本与标记格式</h3>
+            <ul class="fmt-list">
+              <li>Markdown <code>.md</code></li><li>Plain Text <code>.txt</code></li>
+              <li>LaTeX <code>.tex</code></li><li>reStructuredText <code>.rst</code></li>
+              <li>MediaWiki <code>.wiki</code></li><li>OPML <code>.opml</code></li>
+            </ul>
+          </div>
+          <div class="fmt-cluster">
+            <h3>图像格式</h3>
+            <ul class="fmt-list">
+              <li>PNG <code>.png</code></li><li>JPEG <code>.jpg</code></li>
+            </ul>
+          </div>
+        </div>
+        <div class="codeblock" aria-label="主题、部署与整库备份说明">
+          <p class="note">预设主题共 63 套，以下 6 套为示例，样本非全集</p>
+          <p>水墨 / 学院 / 复古 / 午夜 / 终端 / 花园</p>
+          <p>部署适配 GitHub / Gitee / Vercel / Cloudflare / Netlify</p>
+          <p>格式型发布 微信 / Substack / MDX / Hugo / Astro</p>
+          <p>整库备份 markcraft-export-YYYY-MM-DD.zip，含全部文件与图片</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="local" id="local" aria-labelledby="h-local">
+    <div class="wrap local-grid">
+      <div>
+        <h2 id="h-local">数据归属与联网边界</h2>
+        <p class="local-lead">没有云端账号，也没有云同步。存储位置、联网范围与统计开关都可以查证。</p>
+      </div>
+      <div>
+        <div class="local-row">
+          <svg class="ico ico-24" aria-hidden="true"><use href="#i-doc" /></svg>
+          <div>
+            <h3>正文是你自己磁盘上的 .md 文件</h3>
+            <p>选一个文件夹作为 Vault，内容以真实文件存在那里。应用状态（目录结构、知识库、白板、版本历史）以 JSON 存于本机应用数据目录，设置与主题存于 localStorage。</p>
+          </div>
+        </div>
+        <div class="local-row">
+          <svg class="ico ico-24" aria-hidden="true"><use href="#i-net" /></svg>
+          <div>
+            <h3>哪些功能会联网</h3>
+            <p>博客发布与部署、导入外部 URL、上传到你自己配置的图床，以及你主动开启的匿名使用统计。编辑、双向链接、双链图谱与知识库检索都在本机完成。</p>
+          </div>
+        </div>
+        <div class="local-row">
+          <svg class="ico ico-24" aria-hidden="true"><use href="#i-chart" /></svg>
+          <div>
+            <h3>匿名使用统计默认关闭</h3>
+            <p>需你主动同意后才启用，同意后经 HTTPS 上报到自建的隐私友好分析服务，仅含安装 ID、应用版本、系统、语言、功能使用次数与停留时长、崩溃类名、每日心跳，不含正文、标题、文件名、路径或 IP。随时可关，关闭即停发并清空缓冲。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" id="faq" aria-labelledby="h-faq">
+    <div class="wrap">
+      <h2 id="h-faq">常见问题与已知边界</h2>
+      <div class="faq-list">
+        <details>
+          <summary>内容存在哪里？</summary>
+          <p>选一个文件夹作为 Vault，正文以真实 .md 文件存在那里，任何编辑器都能打开。目录结构、知识库与版本历史以 JSON 存于本机应用数据目录，设置存 localStorage。</p>
+        </details>
+        <details>
+          <summary>需要联网吗？</summary>
+          <p>不用。编辑、双向链接、双链图谱与检索都在本机完成。会联网的只有博客发布、导入外部 URL、图床上传与你主动开启的匿名使用统计。</p>
+        </details>
+        <details>
+          <summary>数据会被上传到你们的服务器吗？</summary>
+          <p>正文不会离开你的设备，没有云端账号也没有云同步。匿名使用统计默认关闭，需你主动同意后才经 HTTPS 上报，随时可关。上报内容不含正文、标题、文件名、路径或 IP。</p>
+        </details>
+        <details>
+          <summary>能用网盘同步吗？</summary>
+          <p>可以。Vault 就是一个普通文件夹，用网盘、同步盘或 Git 同步它即可。应用自身状态存于本机应用数据目录，不在这个文件夹里。</p>
+        </details>
+        <details>
+          <summary>可以导出成什么格式？</summary>
+          <p>HTML、PDF、EPUB、Word、Markdown、LaTeX、reStructuredText、MediaWiki、OPML、Plain Text、PNG、JPEG，共 12 种。另有含全部文件与图片的 ZIP 整库备份。</p>
+        </details>
+        <details>
+          <summary>支持哪些系统？</summary>
+          <p>当前提供 Windows x64 的安装版与免安装版。其它平台尚未正式发布，发布前不会在官网宣传为已支持。</p>
+        </details>
+        <details>
+          <summary>为什么是分卷，不是直接下载？</summary>
+          <p>Gitee 免费版单文件限 100MB，单个 exe 约 201MB，无法整体托管，故以分卷存在独立安装包仓库。没有文件直链，clone 后运行合并脚本还原。</p>
+        </details>
+        <details>
+          <summary>有哪些已知限制？</summary>
+          <p>没有 AI 或大模型功能，知识库问答是本地统计检索。双链图谱是 SVG 2D 四布局，3D 球体与 PageRank 从未实现。PDF 复杂版式分页可能不完美，超过 500 节点的图谱在低端机可能偏慢。</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="download" id="download" aria-labelledby="h-download">
+    <div class="wrap download-grid">
+      <div>
+        <h2 id="h-download">获取安装包</h2>
+        <p class="download-lead">版本以安装包仓库为准。安装包以分卷形式托管，clone 后运行仓库内合并脚本还原为完整 exe。</p>
+        <a class="btn" href="https://gitee.com/James-fake/markcraftxiazaicangdianhua" target="_blank" rel="noopener noreferrer">前往安装包仓库<span class="ext-mark" aria-hidden="true">↗</span><span class="sr-only">在新标签页打开</span></a>
+        <p class="mono download-note">Windows x64，版本以安装包仓库为准，无文件直链</p>
+      </div>
+      <div>
+        <div class="platform-row">
+          <div>
+            <div class="platform-name">安装版</div>
+            <div class="mono">NSIS 安装程序，3 个分卷</div>
+          </div>
+          <div class="platform-meta">210,492,652 B</div>
+        </div>
+        <div class="platform-row">
+          <div>
+            <div class="platform-name">免安装版</div>
+            <div class="mono">解压即用，3 个分卷</div>
+          </div>
+          <div class="platform-meta">210,268,563 B</div>
+        </div>
+        <div class="cmd-flow" aria-label="获取与合并安装包的命令流">
+          <p>git clone https://gitee.com/James-fake/markcraftxiazaicangdianhua</p>
+          <p>运行仓库内合并脚本，还原为完整 exe</p>
+          <p>对照仓库给出的合并后字节数校验，再运行</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="brand-row">
+          <svg class="logo" aria-hidden="true"><use href="#logo" /></svg>
+          <span class="brand-name">MarkCraft</span>
+        </div>
+        <p>本地优先，没有云端账号。</p>
+      </div>
+      <nav class="footer-col" aria-label="章节">
+        <a href="#craft">产品</a>
+        <a href="#connection">连接</a>
+        <a href="#possibility">能力</a>
+        <a href="#output">输出</a>
+        <a href="#local">本地</a>
+        <a href="#faq">答疑</a>
+      </nav>
+      <nav class="footer-col" aria-label="仓库与下载">
+        <a href="#download">下载</a>
+        <a href="https://gitee.com/James-fake/markcraft" target="_blank" rel="noopener noreferrer">源码仓库<span class="ext-mark" aria-hidden="true">↗</span><span class="sr-only">在新标签页打开</span></a>
+        <a href="https://gitee.com/James-fake/markcraftxiazaicangdianhua" target="_blank" rel="noopener noreferrer">安装包仓库<span class="ext-mark" aria-hidden="true">↗</span><span class="sr-only">在新标签页打开</span></a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 MarkCraft. 保留所有权利。</span>
+      <div class="footer-legal">
+        <span>隐私政策 <span class="mono">落点待确认</span></span>
+        <span>使用条款 <span class="mono">落点待确认</span></span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,85 +1,106 @@
 /**
- * 设计令牌 —— 色彩来自蓝图 §3.3；排版按「编辑设计」重建（2026-10-13 质量整改）。
+ * MarkCraft 官网设计令牌 —— 深色桌面原生系统。
+ * 依据 `deliverables/design/02-设计规范.md` §3。
  *
- * ⚠️ 字体铁律：
- *  - **中文一律走 sans（现代黑体）** —— 衬线只用于**拉丁文**展示标题；
- *    之前的 bug 是中文也走 serif → 在 Windows 上回退到「宋体」，观感陈旧。
- *  - 拉丁衬线优先 Georgia（跨平台可得），不依赖联网字体。
+ * 锚定产品 `--mc-*` 语义令牌；官网专属阶梯用 `--web-*` 前缀，
+ * 不污染产品令牌、不引入浅色主题、不引入任何新 hex（除已裁决的
+ * `--web-text-muted #8A93A6` 与按钮深字 `--mc-accent-deep #0A0B0F`）。
  */
+
 :root {
-  /* ===== 色彩 ===== */
-  --mc-paper: #f3f0e8; /* 主背景 · 暖纸白 */
-  --mc-ink: #242521; /* 主文字 · 深墨 */
-  --mc-growth: #d9e2d3; /* 辅助 · 柔和灰绿 */
-  --mc-night: #20221f; /* 深色背景（正文深色章节） */
-  --mc-desk: #171915; /* 首屏「夜书房」底色 —— 比 night 更深一档 */
-  --mc-muted-ink: #73756d; /* 次级文字 */
-  --mc-faint: #a9aaa2; /* 三级文字 · 语法标记 / 页码 */
-  --mc-quiet-line: #d7d4cc; /* 分隔线 */
-  --mc-hairline: #e5e1d7; /* 发丝边框（手稿页 / 星图） */
+  /* ===== 背景 ===== */
+  --mc-bg-window: #0a0b0f;   /* 页面底 / Hero / Connection / FAQ / Footer */
+  --mc-bg-sidebar: #0d0f15;  /* Navigation / Workflow / Possibility / Download */
+  --mc-bg-content: #101218;  /* Craft / Output / 占位框底 */
+  --mc-bg-elevated: #151821; /* Local / 代码块 / 特性行 hover */
+  --mc-bg-hover: #1a1d28;    /* 行 hover 备用底色 */
 
-  /* 手稿 × 星图 视觉语言（2026-10-15） */
-  --mc-sheet: #fbfaf6; /* 纸张面 —— 比画布略亮，像一张稿纸 */
-  --mc-accent: #3f6b47; /* 唯一强调色 · 低饱和森林绿（对比 5.3:1，过 AA） */
-  --mc-accent-wash: #eaefe4; /* 焦点行底色 */
-  --mc-code-bg: #efece4; /* 行内代码底 */
+  /* ===== 文本 ===== */
+  --mc-text-primary: #e8ecf4;   /* H1-H3 / 行标题 / 按钮深字 */
+  --mc-text-secondary: #9aa3b5; /* 正文 / 副文 / 说明 */
+  --mc-text-tertiary: #6b7280;  /* 仅装饰 / 占位，不承载信息 */
+  --web-text-muted: #8a93a6;    /* caption / figcaption / mono 元数据 (6.1:1) */
 
-  /* 深底（夜书房 / 深色章节）上的反相文字与线条 */
-  --mc-on-night: #ece9e0;
-  --mc-on-night-muted: #9a9c93;
-  --mc-night-hairline: rgba(255, 255, 255, 0.14);
-  --mc-night-accent: #8fbf94; /* 深底上的强调色（对比 8.2:1） */
+  /* ===== 图标与 accent ===== */
+  --mc-icon: #c8cfdd;        /* 线性图标 stroke */
+  --mc-accent: #7c8cff;      /* 唯一品牌色 */
+  --mc-accent-hover: #9aa7ff;
+  --mc-accent-pressed: #6b7ce6;
+  --mc-accent-soft: rgba(124, 140, 255, 0.18);
+  --mc-accent-text: #a5b4ff; /* 文字链 / H1 内单词色强调 */
+  --mc-accent-deep: #0a0b0f; /* 实底按钮上的深字 (6.6:1) */
 
-  /* ===== 字体 ===== */
-  --mc-font-sans: 'Noto Sans SC', 'DengXian', 'PingFang SC', 'Microsoft YaHei',
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-  /* 仅用于拉丁文展示标题 */
-  --mc-font-display: 'Iowan Old Style', Georgia, 'Times New Roman', serif;
-  /* 兼容旧名（= display）；**不要**再用于中文 */
-  --mc-font-serif: var(--mc-font-display);
-  --mc-font-mono: 'SF Mono', 'Cascadia Code', Consolas, ui-monospace, monospace;
+  /* ===== 边框 ===== */
+  --mc-border-subtle: #1a1d26;
+  --mc-border-medium: #262b3b;
+  --mc-border-strong: #3a4055;
 
-  /* ===== 字号（模块化 1.25 大三度；展示级用 clamp 流体）===== */
-  --text-xs: 0.8125rem; /* 13px · 元信息 */
-  --text-sm: 0.9375rem; /* 15px · 次级 */
-  --text-base: 1.0625rem; /* 17px · 正文 */
-  --text-lg: 1.375rem; /* 22px · 小标题 */
-  --text-xl: clamp(1.75rem, 2.6vw, 2.25rem); /* 章节标题 */
-  --text-2xl: clamp(2.25rem, 3.6vw, 3rem); /* 大标题 / 章节主张 */
-  --text-display: clamp(3rem, 6.4vw, 5.5rem); /* 首屏主标题 */
+  /* ===== 语义色（官网不启用，仅保留供未来）===== */
+  --mc-success: #4ade80;
+  --mc-warning: #fbbf24;
+  --mc-danger: #f87171;
+  --mc-info: #60a5fa;
 
-  /* ===== 行高 ===== */
-  --leading-tight: 1.06;
-  --leading-snug: 1.3;
-  --leading-normal: 1.7;
+  /* ===== 字体栈 ===== */
+  --web-font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system,
+    'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC',
+    'Source Han Sans SC', sans-serif;
+  --web-font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
 
-  /* ===== 字距 ===== */
-  --tracking-tight: -0.02em;
-  --tracking-normal: 0;
-  --tracking-wide: 0.08em;
-  --tracking-widest: 0.32em;
+  /* ===== 语义字号阶梯（landing 专用，clamp 流体）===== */
+  --web-h1: clamp(40px, 5.2vw, 72px);
+  --web-h2: clamp(28px, 3.2vw, 44px);
+  --web-h3: clamp(20px, 2vw, 26px);
+  --web-lead: clamp(16px, 1.5vw, 20px);
+  --web-body: 16px;
+  --web-body-sm: 14px;
+  --web-caption: 12px;
 
-  /* ===== 间距（8px 基准，含大节奏）===== */
-  --mc-space-2xs: 0.25rem;
-  --mc-space-xs: 0.5rem;
-  --mc-space-sm: 1rem;
-  --mc-space-md: 1.5rem;
-  --mc-space-lg: 2.5rem;
-  --mc-space-xl: 4rem;
-  --mc-space-2xl: 6rem;
-  --mc-space-3xl: 9rem;
+  --web-fw-regular: 400;
+  --web-fw-medium: 500;
+  --web-fw-semibold: 600;
 
-  /* ===== 版心 ===== */
-  --mc-container: 1180px;
+  --web-lh-tight: 1.06;
+  --web-lh-heading: 1.14;
+  --web-lh-body: 1.65;
+
+  /* ===== 间距（8px 基准）===== */
+  --mc-space-4: 4px;
+  --mc-space-8: 8px;
+  --mc-space-12: 12px;
+  --mc-space-16: 16px;
+  --mc-space-24: 24px;
+  --mc-space-32: 32px;
+  --mc-space-48: 48px;
+  --mc-space-64: 64px;
+  --mc-space-96: 96px;
+  --mc-space-128: 128px;
+
+  /* ===== 容器 ===== */
+  --mc-container: 1200px;
   --mc-measure: 62ch;
 
-  /* ===== 动效 ===== */
-  --mc-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  /* 强 ease-out（进场 / 线条生长）—— 指数曲线，模仿摩擦减速 */
-  --mc-ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  /* 屏上位移（节点漂移）—— 自然加减速 */
-  --mc-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
-  --mc-dur-fast: 180ms;
-  --mc-dur-base: 320ms;
-  --mc-dur-slow: 620ms;
+  /* ===== 圆角（唯一三档）===== */
+  --mc-radius-sm: 4px;
+  --mc-radius-md: 8px;
+  --mc-radius-lg: 12px;
+
+  /* ===== 阴影 ===== */
+  --mc-shadow-panel: 0 8px 24px rgba(0, 0, 0, 0.4);
+
+  /* ===== 动效（唯一曲线 / 仅 transform·opacity·颜色）===== */
+  --mc-dur-micro: 100ms;
+  --mc-dur-fast: 160ms;
+  --mc-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+
+  /* ===== z-index（禁裸写 9999）===== */
+  --web-z-base: 0;
+  --web-z-header: 10;
+  --web-z-dropdown: 20;
+  --web-z-scrim: 30;
+  --web-z-modal: 40;
+  --web-z-skiplink: 50;
+
+  /* ===== 导航高度 ===== */
+  --mc-nav-h: 64px;
 }

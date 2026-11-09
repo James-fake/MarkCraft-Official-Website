@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MarkCraft 官网重设计 · 备选方向 evidence-first 首屏</title>
+<meta name="description" content="MarkCraft 官网重设计备选方向 evidence-first 的首屏对照稿，与主推方向 native-launchpad 并列供拍板。" />
+<meta name="theme-color" content="#101218" />
+<link rel="icon" type="image/svg+xml" href="./assets/markcraft-logo.svg" />
+<link rel="stylesheet" href="./assets/design.css" />
+<!-- 备选方向 evidence-first 仅首屏差异对照：栅格反转、H1 降档、截图 4/3、上下内距 72/96px。
+     与主推方向共用同一套令牌、组件、文案与 9 个锚点；主推见 index.html。
+     本文件为高保真设计效果图，不是官网生产代码。 -->
+</head>
+<body class="variant-b">
+
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="logo" viewBox="0 0 64 64">
+    <rect width="64" height="64" rx="14" fill="#7C8CFF" />
+    <rect x="15" y="11" width="34" height="42" rx="4" fill="#FFFFFF" />
+    <text x="32" y="40" text-anchor="middle" font-family="Inter, Segoe UI, sans-serif" font-size="26" font-weight="700" fill="#7C8CFF">M</text>
+    <rect x="21" y="46" width="22" height="2" rx="1" fill="#7C8CFF" opacity=".25" />
+  </symbol>
+</svg>
+
+<a class="skip" href="#main">跳到主要内容</a>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top" aria-label="MarkCraft 首页">
+      <svg class="logo" aria-hidden="true"><use href="#logo" /></svg>
+      <span class="brand-name">MarkCraft</span>
+    </a>
+    <nav class="nav-links" aria-label="章节导航">
+      <a href="#craft">产品</a>
+      <a href="#connection">连接</a>
+      <a href="#possibility">能力</a>
+      <a href="#output">输出</a>
+      <a href="#local">本地</a>
+      <a href="#faq">答疑</a>
+    </nav>
+    <a class="btn btn-sm nav-cta" href="#download">下载</a>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+  <section class="hero" id="top" aria-labelledby="h-hero">
+    <div class="wrap hero-grid">
+      <div>
+        <h1 id="h-hero">你的知识库，<em>存在你自己的磁盘上</em></h1>
+        <p class="hero-lead">MarkCraft 是 Windows 桌面端的 Markdown 知识库。双向链接、双链图谱、白板与博客工坊。</p>
+        <div class="hero-actions">
+          <a class="btn" href="#statement">了解功能</a>
+          <a class="link" href="#faq">查看常见问题</a>
+        </div>
+      </div>
+      <figure class="hero-shot">
+        <div class="shot shot-hero" role="img" aria-label="编辑器主视图示意">编辑器主视图（示意）</div>
+        <figcaption>编辑器主视图（示意）</figcaption>
+      </figure>
+    </div>
+  </section>
+</main>
+
+</body>
+</html>

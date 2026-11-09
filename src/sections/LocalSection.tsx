@@ -1,80 +1,48 @@
-import { Container } from '../components/layout/Container'
-import { SectionTitle } from '../components/ui/SectionTitle'
+type Row = { main: string; sub: string }
+
+const rows: Row[] = [
+  {
+    main: '正文是你自己磁盘上的 .md 文件',
+    sub: '选一个文件夹作为 Vault，正文是真实 .md 文件。应用状态（目录结构、知识库、白板、版本历史）以 JSON 存于本机应用数据目录，设置与主题存于 localStorage。',
+  },
+  {
+    main: '哪些功能会联网',
+    sub: '博客发布与部署、导入外部 URL、上传到你自己配置的图床，以及你主动开启的匿名使用统计。编辑、双向链接、双链图谱与知识库检索都在本机完成。',
+  },
+  {
+    main: '匿名使用统计默认关闭',
+    sub: '需你主动同意后才启用，同意后经 HTTPS 上报到自建的隐私友好分析服务，仅含安装 ID、应用版本、系统、语言、功能使用次数与停留时长、崩溃类名、每日心跳，不含正文、标题、文件名、路径或 IP。随时可关，关闭即停发并清空缓冲。',
+  },
+]
 
 /**
- * 屏幕 07 — The Ground / 本地优先
- *
- * 对本地优先的桌面应用来说，「数据主权」是最有力的差异点，
- * 所以从下载区的小字提升为独立章节。视觉仍走「排版」而非截图：
- * 用真实的知识库目录结构说话。
+ * B8 Local（id #local，族 G）。
+ * 左列三行（主文 + 次文），右列真实 Vault 目录结构（mono 文本，非截图）。
  */
-const POINTS = [
-  {
-    t: '纯文本 .md',
-    d: '每篇笔记都是一个 Markdown 文件，任何编辑器都能打开，不绑定 MarkCraft。',
-  },
-  {
-    t: '文件在你自己的磁盘上',
-    d: '选一个文件夹作为知识库，笔记就以真实文件存在那里 —— 不是数据库里的一行。',
-  },
-  {
-    t: '没有账号，没有云端',
-    d: '不经过我们的服务器，也不发起任何联网请求。检索完全在本地完成。',
-  },
-  {
-    t: '随时整库带走',
-    d: '一次导出全部 .md、图片与元数据（ZIP），换台电脑解开就能继续写。',
-  },
-]
-
-const TREE = [
-  { folder: '电影笔记', files: ['电影中的静止镜头.md', '空间如何塑造人物.md', '长镜头与观众注意力.md'] },
-  { folder: '阅读摘录', files: ['侯孝贤与日常时间.md'] },
-  { folder: '文章', files: ['静止的画面，流动的时间.md'] },
-]
-
 export function LocalSection() {
   return (
     <section className="mc-section mc-local" id="local">
-      <Container>
+      <div className="mc-container">
         <div className="mc-local__grid">
-          <div className="mc-local__copy">
-            <SectionTitle
-              titleEn="Your files stay yours."
-              title="你的笔记，就是你的文件"
-              lead="MarkCraft 把内容交还给文件系统：没有私有格式，没有必须登录的账号，也没有只能待在某个服务里的数据。"
-              size="large"
-            />
-            <ul className="mc-local__list">
-              {POINTS.map((p) => (
-                <li key={p.t}>
-                  <strong>{p.t}</strong>
-                  <span>{p.d}</span>
-                </li>
+          <div>
+            <h2 className="mc-h2 mc-local__title">数据归属与联网边界</h2>
+            <p className="mc-local__lead">
+              没有云端账号，也没有云同步。存储位置、联网范围与统计开关都可以查证。
+            </p>
+            <div className="mc-local__rows">
+              {rows.map((r) => (
+                <div className="mc-local__row" key={r.main}>
+                  <p className="mc-local__row-main">{r.main}</p>
+                  <p className="mc-local__row-sub">{r.sub}</p>
+                </div>
               ))}
-            </ul>
-          </div>
-
-          <div className="mc-local__tree">
-            <div className="mc-local__tree-head">
-              <span className="mc-local__badge">本地</span>
-              <span className="mc-local__path">~/Documents/我的知识库</span>
             </div>
-            <ul className="mc-local__folders">
-              {TREE.map((g) => (
-                <li key={g.folder}>
-                  <span className="mc-local__folder">{g.folder}</span>
-                  <ul>
-                    {g.files.map((f) => (
-                      <li key={f}>{f}</li>
-                    ))}
-                  </ul>
-                </li>
-              ))}
-            </ul>
           </div>
+          <pre className="mc-local__tree">
+            {'我的知识库/\n├─ 电影笔记/\n│  ├─ 静止镜头.md\n│  └─ 长镜头与注意力.md\n├─ 阅读摘录/\n│  └─ 侯孝贤与日常时间.md\n├─ 文章/\n│  └─ 流动的时间.md\n└─ .markcraft/        本机应用数据目录（JSON）'}
+          </pre>
         </div>
-      </Container>
+      </div>
     </section>
   )
 }

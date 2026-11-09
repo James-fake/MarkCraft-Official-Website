@@ -1,34 +1,52 @@
 import { siteConfig } from '../config/siteConfig'
+import { IconMark } from '../components/ui/icons'
+
+const EXT = ' ↗'
 
 /**
- * Footer
- *
- * ⚠️ 页脚导航与顶部导航**共用 `siteConfig.nav`** —— 早前两处各写一套词汇
- * （导航「产品/连接/能力」vs 页脚「编辑/连接/可能/演示」），且页脚的「演示」
- * 实际指向 `#craft`，名不对位。现已统一，并补上「下载」入口。
+ * B11 Footer（族 J）。
+ * 品牌句 + 导航组（6 锚点）+ 仓库组（下载 / 源码 / 安装包）。
+ * 两个法律链接落点待确认，以 mono 显式标注，不伪装成可用链接。
  */
 export function FooterSection() {
   return (
     <footer className="mc-footer">
-      <div className="mc-container mc-footer__inner">
-        <div className="mc-footer__brand">
-          <p className="mc-footer__name">{siteConfig.name}</p>
-          <p className="mc-footer__desc">一个让思想成形的地方。</p>
-        </div>
-        <nav className="mc-footer__links" aria-label="页脚导航">
-          {siteConfig.nav.map((item) => (
-            <a key={item.id} href={`#${item.id}`}>
-              {item.labelZh}
+      <div className="mc-container">
+        <div className="mc-footer__top">
+          <div>
+            <div className="mc-footer__brand">
+              <IconMark />
+              {siteConfig.name}
+            </div>
+            <p className="mc-footer__tag">本地优先，没有云端账号。</p>
+          </div>
+
+          <nav className="mc-footer__col" aria-label="页脚导航">
+            <h4>产品</h4>
+            {siteConfig.nav.map((item) => (
+              <a key={item.id} href={`#${item.id}`}>
+                {item.label}
+              </a>
+            ))}
+          </nav>
+
+          <div className="mc-footer__col">
+            <h4>仓库</h4>
+            <a href="#download">下载</a>
+            <a href={siteConfig.sourceRepo} target="_blank" rel="noopener noreferrer">
+              源码仓库<span className="mc-sr">在新标签页打开</span>
+              {EXT}
             </a>
-          ))}
-          <a href="#download">下载</a>
-          <a href={siteConfig.sourceRepo} target="_blank" rel="noreferrer noopener">
-            源码
-          </a>
-        </nav>
-        <p className="mc-footer__copy">
-          © {siteConfig.copyrightYear} {siteConfig.name}. 保留所有权利。
-        </p>
+            <a href={siteConfig.installerRepo} target="_blank" rel="noopener noreferrer">
+              安装包仓库<span className="mc-sr">在新标签页打开</span>
+              {EXT}
+            </a>
+          </div>
+        </div>
+
+        <div className="mc-footer__bottom">
+          <span>© {siteConfig.copyrightYear} {siteConfig.name}. 保留所有权利。</span>
+        </div>
       </div>
     </footer>
   )
