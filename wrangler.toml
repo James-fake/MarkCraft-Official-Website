@@ -1,0 +1,5 @@
+# Cloudflare Pages 部署配置
+# 用途：wrangler pages deploy dist 时自动读取；Git 关联方式（控制台）则按下方相同设置填写。
+name = "markcraft-official-website"
+pages_build_output_dir = "dist"
+compatibility_date = "2024-09-23"
