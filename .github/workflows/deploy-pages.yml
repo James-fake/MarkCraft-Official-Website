@@ -10,8 +10,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with: { node-version: 20, cache: npm }
-      - run: npm ci
+        with: { node-version: 20 }
+      # 仓库的 .npmrc 与 lock 都指向国内镜像 npmmirror，
+      # GitHub runner 拉不到；CI 内改用官方源重新解析依赖。
+      - name: Install dependencies
+        run: |
+          rm -f .npmrc package-lock.json
+          npm install --no-audit --no-fund
       - run: npm run build
       - run: echo "markcraft.abrdns.com" > dist/CNAME
       - uses: actions/configure-pages@v5
