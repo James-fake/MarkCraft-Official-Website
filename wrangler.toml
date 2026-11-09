@@ -1,5 +1,7 @@
-# Cloudflare Pages 部署配置
-# 用途：wrangler pages deploy dist 时自动读取；Git 关联方式（控制台）则按下方相同设置填写。
+# Cloudflare Workers 静态资源站点配置
+# 本项目是纯静态 SPA，构建产物在 dist/，用 Workers Static Assets 直接发布（无需 Worker 脚本入口）。
 name = "markcraft-official-website"
-pages_build_output_dir = "dist"
-compatibility_date = "2024-09-23"
+compatibility_date = "2026-11-09"
+
+[assets]
+directory = "./dist"
