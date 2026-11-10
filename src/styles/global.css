@@ -763,6 +763,8 @@ svg {
   font-weight: var(--web-fw-medium);
   line-height: 1.5;
   color: var(--web-text-muted);
+  /* SHA-256 为 64 位连续十六进制串，允许在任意位置折行，避免撑破两列卡片 */
+  overflow-wrap: anywhere;
 }
 .mc-download__cmd {
   padding: 16px 20px;
