@@ -7,7 +7,8 @@ const fmtMB = (n: number) => `${(n / 1024 / 1024).toFixed(1)} MB`
  * B10 Download（id #download，族 I）。
  * 主渠道 = GitHub Release 附件固定名直链，点击即下载（响应带
  * Content-Disposition: attachment，当前页不跳转、不开新标签）；
- * Gitee 分卷降级为国内备用，Release 更新日志与 SHA256SUMS.txt 为有意跳转。
+ * Gitee 下载指引页为国内备用（提供直链，不分卷），Release 更新日志与
+ * SHA256SUMS.txt 为有意跳转。
  *
  * 蓝图 §5.7 / §11.1 / §14：只展示已核实的版本 / 大小 / 校验信息，空值不渲染；
  * 主渠道未就绪时明确显示「下载信息正在准备」，只给备用渠道，
@@ -82,7 +83,7 @@ export function DownloadSection() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Gitee 分卷仓库 ↗
+                Gitee 下载指引 ↗
               </a>
             </p>
           </div>
@@ -105,15 +106,15 @@ export function DownloadSection() {
             </div>
             <pre className="mc-download__cmd">
               {ready
-                ? `# 国内备用渠道（主渠道下载慢时使用）
-git clone ${cfg.fallback.repoUrl}
-# 按仓库内说明运行合并脚本，还原为完整 exe
+                ? `# 国内备用渠道（主渠道下载慢时打开指引页）
+# ${cfg.fallback.repoUrl}
+# 指引页内提供 GitHub Releases 直链，无需分卷合并
 
 # 校验主渠道下载的文件（PowerShell）
 Get-FileHash .\\MarkCraft-Setup-x64.exe -Algorithm SHA256`
                 : `# 国内备用渠道
-git clone ${cfg.fallback.repoUrl}
-# 按仓库内说明运行合并脚本，还原为完整 exe`}
+# ${cfg.fallback.repoUrl}
+# 指引页内提供 GitHub Releases 直链，无需分卷合并`}
             </pre>
           </div>
         </div>

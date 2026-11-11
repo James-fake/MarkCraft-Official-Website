@@ -6,7 +6,8 @@
  *   MarkCraft 安装包约 201 MB 可整体托管，无需切分卷。附件使用固定文件名，
  *   保证 /releases/latest/download/<name> 链接永久有效，响应带
  *   Content-Disposition: attachment，点击即下载、当前页不跳转。
- * - 备用渠道：Gitee 分卷仓库（免费版单文件 <= 100 MB），供国内网络不佳时使用。
+ * - 备用渠道：Gitee 下载指引页（免费版单文件 <= 100 MB 且未开放 LFS，
+ *   不托管安装包本体），提供 GitHub Release 直链与校验值，供国内访问参考。
  *
  * ⚠️ 蓝图 §5.7 / §11.1 / §14：下载信息必须真实可验证，
  *    禁止硬编码虚构地址、版本号、文件大小或校验和。
@@ -14,15 +15,17 @@
  *      https://api.github.com/repos/James-fake/MarkCraft/releases/latest
  *      https://github.com/James-fake/MarkCraft/releases/latest/download/SHA256SUMS.txt
  *
- * 本版本数据核实记录（2026-11-10，已双重比对）：
+ * 本版本数据核实记录（2026-11-11 更新，已双重比对）：
  *   tag_name        v1.0.0                    -> version 1.0.0
- *   published_at    2026-11-10T04:49:33Z     -> releaseDate 2026-11-10
- *   MarkCraft-Setup-x64.exe      210941711 B
- *     sha256 8080b7c1d04291fa66d09b6bd8b24477133e8d8383abae35fd17afd514046449
- *   MarkCraft-Portable-x64.exe   210660925 B
- *     sha256 e1d13c825a42b61f6d989208102907cc661a4741cf01fd402660ef08389ab357
- *   上述 SHA-256 同时与 Release asset digest 及 SHA256SUMS.txt 一致；
- *   两个 latest/download 直链均实测 200 且返回 attachment 响应头。
+ *   published_at    2026-11-10T04:49:33Z     -> releaseDate 2026-11-10（Release 未重建，仅替换附件）
+ *   MarkCraft-Setup-x64.exe      210901867 B
+ *     sha256 2f22d71e06fce92136c70351cb03c2d37306d80400a8625c7e232fcaec23c1ce
+ *   MarkCraft-Portable-x64.exe   210668555 B
+ *     sha256 3f8fd95cb6872e1faa040e1fa12de85980b7b58c0f2cf51f0b042db28d7296aa
+ *   数据来源：本地 release-v22 产物 sha256sum，且与本仓 Release 的
+ *   SHA256SUMS.txt 附件、MarkCraft-Download-Hub 的 v1.0.0 附件逐一比对；
+ *   2026-11-11 已将两个仓库的 Release 附件同步替换为同一份产物。
+ *   两个 latest/download 直链为固定资产名，替换附件后链接保持不变。
  */
 
 /** Release 附件直链前缀：固定文件名使 latest/download 链接永不失效 */
@@ -55,13 +58,12 @@ export const downloadConfig = {
   releasePageUrl: 'https://github.com/James-fake/MarkCraft/releases/latest',
   /** 校验文件 */
   checksumUrl: `${RELEASE_BASE}/SHA256SUMS.txt`,
-  /** 国内备用渠道：Gitee 分卷仓库 */
+  /** 国内备用渠道：Gitee 下载指引页（提供 GitHub Release 直链，不分卷） */
   fallback: {
-    name: '国内备用（Gitee 分卷）',
+    name: '国内备用（Gitee 下载指引）',
     repoUrl: 'https://gitee.com/James-fake/markcraftxiazaicangdianhua',
-    guideUrl:
-      'https://gitee.com/James-fake/markcraftxiazaicangdianhua#下载与合并',
-    description: '分卷托管，clone 后按仓库内说明合并还原为完整 exe',
+    guideUrl: 'https://gitee.com/James-fake/markcraftxiazaicangdianhua',
+    description: '下载指引页，提供 GitHub Releases 直链与 SHA-256 校验值，无需分卷合并',
   },
   /** 安装渠道 */
   channels: [
@@ -69,17 +71,17 @@ export const downloadConfig = {
       name: '安装版',
       description: 'NSIS 安装程序，可自选安装目录与笔记存储位置',
       downloadUrl: `${RELEASE_BASE}/MarkCraft-Setup-x64.exe`,
-      sizeBytes: 210941711,
+      sizeBytes: 210901867,
       sha256:
-        '8080b7c1d04291fa66d09b6bd8b24477133e8d8383abae35fd17afd514046449',
+        '2f22d71e06fce92136c70351cb03c2d37306d80400a8625c7e232fcaec23c1ce',
     },
     {
       name: '免安装版',
       description: '绿色版，双击即用，不写注册表',
       downloadUrl: `${RELEASE_BASE}/MarkCraft-Portable-x64.exe`,
-      sizeBytes: 210660925,
+      sizeBytes: 210668555,
       sha256:
-        'e1d13c825a42b61f6d989208102907cc661a4741cf01fd402660ef08389ab357',
+        '3f8fd95cb6872e1faa040e1fa12de85980b7b58c0f2cf51f0b042db28d7296aa',
     },
   ] as InstallChannel[],
   /** 发布日期（Release published_at 的 UTC 日期） */
